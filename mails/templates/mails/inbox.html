@@ -6,16 +6,15 @@
 <body>
 {% block content %}
     {% for mail in mails %}
-        <div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
-
+        <div class="container mt-4 mb-4 p-3 d-flex justify-content-center" onclick='location.href="{% url 'mails:detail' mail.id %}";'>
             <div class="card p-4">
                 <div class=" image d-flex flex-column justify-content-center align-items-center">
                     {% for info_part in mail.get_info %}
                         <span>{{ info_part }}</span>
                     {% endfor %}
                 </div>
-
             </div>
+
         </div>
     {% endfor %}
 {% endblock %}
