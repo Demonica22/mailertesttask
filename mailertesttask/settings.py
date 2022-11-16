@@ -107,7 +107,6 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Europe/Moscow'
 
-
 USE_I18N = True
 
 USE_TZ = True
@@ -122,3 +121,6 @@ LOGIN_REDIRECT_URL = "/mails/inbox"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.User'
+CELERY_TIMEZONE = 'Europe/Moscow'
+CELERY_BROKER_URL = "redis://localhost:6379"
+CELERY_RESULT_BACKEND = "redis://localhost:6379"

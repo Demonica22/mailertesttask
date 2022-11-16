@@ -1,12 +1,12 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.shortcuts import render
 from django.views import generic
 from .models import Mail
 from .forms import MailComposeForm
+from .tasks import create_mail
 from users.models import User
 import re
-from copy import deepcopy
 
 
 class InboxPage(generic.ListView):
@@ -73,11 +73,9 @@ class MailComposePage(generic.CreateView):
             receivers = request.POST.getlist('receivers')
             receivers = User.objects.filter(id__in=receivers)
             for receiver in receivers:
-                mail_piece = deepcopy(form.save(commit=False))
-                mail_piece.id = None
-                mail_piece.receiver = receiver
-                mail_piece.sender = request.user
-                mail_piece.save()
+                create_mail.delay(
+                    {'sender': request.user.id, 'text': form.cleaned_data["text"], 'title': form.cleaned_data["title"],
+                     'receiver': receiver.id})
         return HttpResponseRedirect(reverse('mails:inbox'))
 
 
