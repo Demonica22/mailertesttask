@@ -22,6 +22,7 @@ class Mail(models.Model):
 
     def get_info(self):
         mail_info = [f"From: {self.sender}",
+                     f"To: {self.receiver}",
                      f"Title: {self.title}",
                      f"Text: {self.text}",
                      f"Was read?: {self.was_read}"]
