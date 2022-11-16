@@ -5,17 +5,29 @@
 }
 
 .topnav {
-    background-color: #2C2117;
+    background-color: #060369;
     overflow: auto;
     padding: 0 5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: start;
 }
 
 .left {
-    float: left;
+    display: flex;
+}
+
+.center {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .right {
-    float: right;
+    display: flex;
+    justify-content: end;
+    align-items: end;
 }
 
 .topnav a:hover {
@@ -51,7 +63,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #00bfa5;
+    background-color: #868693;
     max-width: 22rem;
     max-height: 40rem;
     padding: 0.5rem 0;

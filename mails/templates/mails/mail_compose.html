@@ -5,9 +5,11 @@
 <link rel="stylesheet" href="{% static 'users/style.css' %}">
 <body>
 {% block content %}
+    <div class="card center">
     <form method="post">{% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Send">
     </form>
+    </div>
 {% endblock %}
 </body>
