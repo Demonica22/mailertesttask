@@ -1,3 +1,5 @@
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from django.shortcuts import render
 from django.views import generic
 from .models import Mail
@@ -33,6 +35,18 @@ class MailDetailPage(generic.DetailView):
         return render(request, self.template_name, {'mails': mail})
 
 
+class MailComposePage(generic.CreateView):
+    model = Mail
+    template_name = "mails/mail_compose.html"
+    fields = ["receiver", "title", "text"]
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.sender = self.request.user
+        self.object.save()
+        return HttpResponseRedirect(reverse('mails:inbox'))
+
+
 def fullfill_mails(mails):
     # TODO: change default values of replacement
     regex = r"[%]\b.*\b[%]"
@@ -41,4 +55,8 @@ def fullfill_mails(mails):
             mail.text = mail.text.replace("%first_name%", mail.receiver.first_name or "default")
             mail.text = mail.text.replace("%last_name%", mail.receiver.last_name or "default")
             mail.text = mail.text.replace("%birthday%", mail.receiver.birth_date or "default")
+        if re.search(regex, str(mail.title)):
+            mail.title = mail.title.replace("%first_name%", mail.receiver.first_name or "default")
+            mail.title = mail.title.replace("%last_name%", mail.receiver.last_name or "default")
+            mail.title = mail.title.replace("%birthday%", mail.receiver.birth_date or "default")
     return mails

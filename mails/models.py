@@ -1,5 +1,6 @@
 from django.db import models
 from users.models import User
+from django.urls import reverse
 
 
 # Create your models here.
@@ -25,3 +26,6 @@ class Mail(models.Model):
                      f"Text: {self.text}",
                      f"Was read?: {self.was_read}"]
         return mail_info
+
+    def get_absolute_url(self):
+        return reverse('mails:detail', args=[self.id])

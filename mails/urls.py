@@ -5,5 +5,5 @@ app_name = 'mails'
 urlpatterns = [
     path('inbox', views.InboxPage.as_view(), name='inbox'),
     path('<int:id>', views.MailDetailPage.as_view(), name='detail'),
-    #path('compose',views.)
+    path('compose', views.MailComposePage.as_view(), name='compose'),
 ]
