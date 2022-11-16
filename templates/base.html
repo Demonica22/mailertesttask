@@ -9,9 +9,15 @@
     <meta charset="UTF-8">
     <div class="topnav">
         <span>{{ static }}</span>
-        <a class="left" href="{% url 'mails:compose' %}"> Compose</a>
-        <a class="left" href="{% url 'mails:inbox' %}"> Inbox</a>
-        <a class="right" href="{% url 'users:profile' user_id=user.id %}"> Profile</a>
+        {% if user.is_authenticated %}
+            <a class="left" href="{% url 'mails:compose' %}"> Compose</a>
+            <a class="left" href="{% url 'mails:inbox' %}"> Inbox</a>
+            <a class="right" href="{% url 'users:profile' user_id=user.id %}"> Profile</a>
+        {% else %}
+            <a class="right" href="{% url 'users:login'%}"> Login</a>
+
+        {% endif %}
+
     </div>
 </head>
 <body>
