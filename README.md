@@ -22,3 +22,4 @@ Each mail is clickable and redirects to it's detail page.
 You can compose a mail to any existing user in data base, multiselect at compose page in receiver field (holding ctrl).
 Also, you can pass time delay (in seconds) to send mail later.
 If you look at mail, where you are receiver, the mail will be marked as read.
+You can use variables in mail title or text by taking them in % symbols (available %first_name% %second_name% %birthday%)
