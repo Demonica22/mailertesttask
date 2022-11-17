@@ -72,11 +72,13 @@ class MailComposePage(generic.CreateView):
         if form.is_valid():
             receivers = request.POST.getlist('receivers')
             receivers = User.objects.filter(id__in=receivers)
+            countdown_time = form.cleaned_data['time_to_send']
             for receiver in receivers:
-                create_mail.delay(
+                create_mail.apply_async((
                     {'sender': request.user.id, 'text': form.cleaned_data["text"], 'title': form.cleaned_data["title"],
-                     'receiver': receiver.id})
-        return HttpResponseRedirect(reverse('mails:inbox'))
+                     'receiver': receiver.id},), countdown=countdown_time)
+            return HttpResponseRedirect(reverse('mails:sent'))
+        return render(request, self.template_name, {'form': form})
 
 
 def fullfill_mails(mails):
