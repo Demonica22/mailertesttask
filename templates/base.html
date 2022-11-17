@@ -16,9 +16,12 @@
                 <a href="{% url 'mails:compose' %}"> Compose</a>
             </div>
             <div class="right">
-                <a href="{% url 'users:profile' user_id=user.id %}"> Profile</a>
+                <a href="{% url 'users:profile' user_id=user.id %}">Profile</a>
+                <a href="{% url 'users:logout' %}">LogOut</a>
             </div>
         {% else %}
+            <div></div>
+            <div></div>
             <div class="right">
                 <a href="{% url 'users:login' %}"> Login</a>
             </div>
