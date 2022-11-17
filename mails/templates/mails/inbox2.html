@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'users/inbox.css' %}">
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <!-- BEGIN INBOX -->
+            <div class="col-md-12">
+                <div class="grid email">
+                    <div class="grid-body">
+
+                        <!-- BEGIN INBOX CONTENT -->
+                        <div class="col-md-9">
+                            <div class="padding"></div>
+
+                            <div class="table-responsive">
+                                <table class="table" style="">
+                                    <tbody>
+                                    <tr>
+                                        <td class="name">From</td>
+                                        <td class="subject">Title</td>
+
+                                    </tr>
+                                    {% for mail in mails %}
+                                        <tr style="border: 1px solid black; border-collapse: collapse;{% if not mail.was_read %} background-color: #a4a4a4{% endif %}"
+                                            onclick='location.href="{% url 'mails:detail' mail.id %}";'>
+                                            <td class="name">{{ mail.sender }}</td>
+                                            <td class="subject">{{ mail.title }}</td>
+
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- END INBOX CONTENT -->
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END INBOX -->
+    </div>
+    </div>
+{% endblock %}

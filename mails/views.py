@@ -10,7 +10,7 @@ import re
 
 
 class InboxPage(generic.ListView):
-    template_name = 'mails/inbox.html'
+    template_name = 'mails/inbox2.html'
     context_object_name = 'inbox_page'
 
     def get(self, request):
@@ -20,7 +20,7 @@ class InboxPage(generic.ListView):
         except Mail.DoesNotExist:
             mails = []
 
-        return render(request, self.template_name, {'mails': mails})
+        return render(request, self.template_name, {'mails': mails[::-1]})
 
 
 class SentMailsPage(generic.ListView):
