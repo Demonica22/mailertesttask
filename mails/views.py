@@ -43,14 +43,14 @@ class MailDetailPage(generic.DetailView):
 
     def get(self, request, id):
         try:
-            mail = [Mail.objects.get(id=self.kwargs["id"])]
-            if mail[0].receiver.id == request.user.id:
-                mail[0].was_read = True
-                mail[0].save()
-            mail = fullfill_mails(mail)
+            mail = Mail.objects.get(id=self.kwargs["id"])
+            if mail.receiver.id == request.user.id:
+                mail.was_read = True
+                mail.save()
+            mail = fullfill_mails([mail])[0]
         except Mail.DoesNotExist:
             mail = None
-        return render(request, self.template_name, {'mails': mail})
+        return render(request, self.template_name, {'mail': mail})
 
 
 class MailComposePage(generic.CreateView):
