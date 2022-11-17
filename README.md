@@ -1,5 +1,13 @@
 # mailertesttask
 test task for mailganer 
+<h1>Starting application<h1>
+<h3>
+python3 manage.py runserver
+  
+redis-server
+    
+python3 -m celery -A mailertesttask worker 
+</h3>
 <h1> Main page </h1>
 http://localhost:8000/mails/inbox 
 <h2> Registrated admin user </h2>
