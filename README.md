@@ -7,6 +7,7 @@ login - admin@admin.ru
 
 pass - 123
 <h2> Some info</h2>
+All required modules are mentioned in requirements.txt (Celery, Django, Redis)
 There are some messages from demonica@mail.ru to admin.
 If mail in inbox or sent list has grey background it is unread.
 Each mail is clickable and redirects to it's detail page.
