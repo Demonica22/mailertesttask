@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 from users.models import User
 from django.urls import reverse
@@ -11,13 +13,15 @@ class Mail(models.Model):
     title = models.CharField(max_length=200)
     text = models.CharField(max_length=5000, blank=True, null=True)
     was_read = models.BooleanField(default=False)
+    send_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         mail_info = f"From: {self.sender}" \
                     f"To: {self.receiver}" \
                     f"Title: {self.title}" \
                     f"Text: {self.text}" \
-                    f"Was read?: {self.was_read}"
+                    f"Was read? {self.was_read}" \
+                    f"Was send - {self.send_time}"
         return mail_info
 
     def get_info(self):
@@ -25,7 +29,8 @@ class Mail(models.Model):
                      f"To: {self.receiver}",
                      f"Title: {self.title}",
                      f"Text: {self.text}",
-                     f"Was read?: {self.was_read}"]
+                     f"Was read? {self.was_read}",
+                     f"Was send - {self.send_time.strftime('%y/%m/%d, %H:%M')}"]
         return mail_info
 
     def get_absolute_url(self):

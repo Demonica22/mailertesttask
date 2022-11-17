@@ -5,14 +5,15 @@
 <link rel="stylesheet" href="{% static 'users/style.css' %}">
 <body>
 {% block content %}
-    <div class="card center">
-        <form method="post">
-            {% csrf_token %}
-            <div>
-                {{ form.as_p }}
+    <div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
+        <div class="card p-4">
+            <div class=" image d-flex flex-column justify-content-center align-items-center">
+                {% for info_part in mail.get_info %}
+                    <span>{{ info_part }}</span>
+                {% endfor %}
             </div>
-            <input class="send_btn btn btn-success" type="submit" value="Send">
-        </form>
+        </div>
+
     </div>
 {% endblock %}
 </body>

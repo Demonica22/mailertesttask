@@ -10,26 +10,26 @@ import re
 
 
 class InboxPage(generic.ListView):
-    template_name = 'mails/inbox2.html'
+    template_name = 'mails/inbox.html'
     context_object_name = 'inbox_page'
 
     def get(self, request):
         try:
-            mails = Mail.objects.all().filter(receiver_id=request.user.id)
+            mails = Mail.objects.all().filter(receiver_id=request.user.id).order_by('-send_time')
             mails = fullfill_mails(mails)
         except Mail.DoesNotExist:
             mails = []
 
-        return render(request, self.template_name, {'mails': mails[::-1]})
+        return render(request, self.template_name, {'mails': mails})
 
 
 class SentMailsPage(generic.ListView):
-    template_name = 'mails/inbox.html'
+    template_name = 'mails/sent.html'
     context_object_name = 'sent'
 
     def get(self, request):
         try:
-            mails = Mail.objects.all().filter(sender_id=request.user.id)
+            mails = Mail.objects.all().filter(sender_id=request.user.id).order_by('-send_time')
             mails = fullfill_mails(mails)
         except Mail.DoesNotExist:
             mails = []
@@ -38,7 +38,7 @@ class SentMailsPage(generic.ListView):
 
 
 class MailDetailPage(generic.DetailView):
-    template_name = 'mails/inbox.html'
+    template_name = 'mails/detail.html'
     context_object_name = 'detail_page'
 
     def get(self, request, id):

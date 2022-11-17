@@ -6,9 +6,8 @@ from django.core.validators import MinValueValidator
 
 class MailComposeForm(forms.ModelForm):
     receivers = forms.MultipleChoiceField(choices=[(elem.id, elem.email) for elem in User.objects.all()])
-    # send_now = forms.BooleanField(initial=True)
-    # date_to_send = forms.DateTimeField(widget=forms.DateTimeInput)
-    time_to_send = forms.IntegerField(validators=[MinValueValidator(0)])
+    time_to_send = forms.IntegerField(validators=[MinValueValidator(0)], initial=0,
+                                      help_text="(seconds)")
 
     class Meta:
         model = Mail

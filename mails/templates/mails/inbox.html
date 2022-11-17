@@ -1,21 +1,50 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% load static %}
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-<link rel="stylesheet" href="{% static 'users/style.css' %}">
-<body>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'users/inbox.css' %}">
 {% block content %}
-    {% for mail in mails %}
-        <div class="container mt-4 mb-4 p-3 d-flex justify-content-center" onclick='location.href="{% url 'mails:detail' mail.id %}";'>
-            <div class="card p-4">
-                <div class=" image d-flex flex-column justify-content-center align-items-center">
-                    {% for info_part in mail.get_info %}
-                        <span>{{ info_part }}</span>
-                    {% endfor %}
+    <div class="container">
+        <div class="row">
+            <!-- BEGIN INBOX -->
+            <div class="col-md-12">
+                <div class="grid email">
+                    <div class="grid-body">
+
+                        <!-- BEGIN INBOX CONTENT -->
+                        <div class="col-md-9">
+                            <div class="padding"></div>
+
+                            <div class="table-responsive">
+                                <table class="table" style="">
+                                    <tbody>
+                                    <tr>
+                                        <th class="name">From</th>
+                                        <th class="subject">Title</th>
+                                        <th class="subject">Send</th>
+
+                                    </tr>
+                                    {% for mail in mails %}
+                                        <tr style="border: 1px solid black; border-collapse: collapse;{% if not mail.was_read %} background-color: #a4a4a4{% endif %}"
+                                            onclick='location.href="{% url 'mails:detail' mail.id %}";'>
+                                            <td class="name">{{ mail.sender }}</td>
+                                            <td class="subject">{{ mail.title }}</td>
+                                            <td class="subject">{{ mail.send_time }}</td>
+
+
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- END INBOX CONTENT -->
+
+
+                    </div>
                 </div>
             </div>
-
         </div>
-    {% endfor %}
+        <!-- END INBOX -->
+    </div>
+    </div>
 {% endblock %}
-</body>
